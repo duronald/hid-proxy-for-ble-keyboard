@@ -1,11 +1,16 @@
 
-A hid proxy using ESP32C3 and CH9329/CH9328. ESP32C3 responds for BLE hosting, LED controling and storing connected bluetooth device addr with nvs_flash. And CH9329/CH9328 is used to simulate keyboard.
+A hid proxy using ESP32S3. No extra add on boards are needed. Just connect your ESP32 to your computer.
+
+The keyboard connects to the ESP32S3, which acts as a USB HID device to the computer host. The HID commands are relayed over bluetooth to the host computer over USB HID.
 
 This was tested on following keyboards:
-- zmk based keyboards
+- Redragon Bluetooth Keyboards
 
 * Features
 - hid proxy for bluetooth keyboard: Scan and connect to BLE keyboards. The code is modified based on the official example: https://github.com/espressif/esp-idf/tree/master/examples/bluetooth/esp_hid_host
+also, now also using code from
+https://github.com/espressif/esp-idf/blob/master/examples/peripherals/usb/device/tusb_hid/main/tusb_hid_example_main.c
+
 
   Which device will be selected:
   1. UUID is 0x1812 while parsing with ESP_BLE_AD_TYPE_16SRV_PART
@@ -23,10 +28,10 @@ This was tested on following keyboards:
 * Build and flash
 Install esp idf: https://docs.espressif.com/projects/esp-idf/en/latest/esp32c3/get-started/index.html
 
-set target to esp32c3
+set target to esp32s3
 
   #+begin_src bash
-idf.py set-target esp32c3
+idf.py set-target esp32s3
   #+end_src
 
 Then, build and flash to your hid proxy using serial port dev/ttyUSB0. With monitor, you can start monitor after flashing, use Ctrl-] to stop monitor and release the port.
